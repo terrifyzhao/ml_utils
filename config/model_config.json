@@ -1,0 +1,17 @@
+[
+  {
+    "model_name": "logistic_regression",
+    "params": {
+      "lr": 0.1,
+      "C": 0.5,
+      "penalty": "l2"
+    }
+  },
+  {
+    "model_name": "svm",
+    "params": {
+      "lr": 0.1,
+      "lambda": 1000
+    }
+  }
+]
