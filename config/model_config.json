@@ -2,16 +2,32 @@
   {
     "model_name": "logistic_regression",
     "params": {
-      "lr": 0.1,
       "C": 0.5,
       "penalty": "l2"
     }
   },
   {
-    "model_name": "svm",
+    "model_name": "svc",
     "params": {
-      "lr": 0.1,
-      "lambda": 1000
+      "kernel": "linear",
+      "C": 0.5
+    }
+  },
+  {
+    "model_name": "random_forest",
+    "params": {
+      "criterion": "gini",
+      "max_depth": 3,
+      "n_estimators": 20
+    }
+  },
+  {
+    "model_name": "gbdt",
+    "params": {
+      "learning_rate": 0.1,
+      "subsample": 0.7,
+      "max_depth": 3,
+      "n_estimators": 20
     }
   }
 ]
