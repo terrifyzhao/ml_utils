@@ -31,19 +31,29 @@ def test_data():
 def train(data_path='', label_name=''):
     # X_train, X_eval, y_train, y_eval = read_data(data_path, label_name)
     X_train, X_eval, y_train, y_eval = test_data()
-    json_str = json.load(open('../config/model_config.json', encoding='utf-8'))
+    json_str = json.load(open('../config/params_config.json', encoding='utf-8'))
     for j in json_str:
         name = j['model_name']
         param = j['params']
         model = None
+
         if name == 'logistic_regression':
             from model.classification.logistic_regression import model
         elif name == 'svc':
             from model.classification.svc import model
-        elif name == 'random_forest':
-            from model.classification.random_forest import model
-        elif name == 'gbdt':
-            from model.classification.gbdt import model
+        elif name == 'forest_cls':
+            from model.classification.forest_cls import model
+        elif name == 'gbdt_cls':
+            from model.classification.gbdt_cls import model
+        elif name == 'linear_regression':
+            from model.regression.linear_regression import model
+        elif name == 'svr':
+            from model.regression.svr import model
+        elif name == 'forest_reg':
+            from model.regression.forest_reg import model
+        elif name == 'gbdt_reg':
+            from model.regression.gbdt_reg import model
+
         cls = model(param)
         print()
         print('*' * 100)

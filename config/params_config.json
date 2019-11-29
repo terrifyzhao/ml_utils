@@ -1,0 +1,60 @@
+[
+  {
+    "model_name": "logistic_regression",
+    "params": {
+      "C": 0.5,
+      "penalty": "l2"
+    }
+  },
+  {
+    "model_name": "svc",
+    "params": {
+      "kernel": "linear",
+      "C": 0.5
+    }
+  },
+  {
+    "model_name": "forest_cls",
+    "params": {
+      "criterion": "gini",
+      "max_depth": 3,
+      "n_estimators": 20
+    }
+  },
+  {
+    "model_name": "gbdt_cls",
+    "params": {
+      "learning_rate": 0.1,
+      "subsample": 0.7,
+      "max_depth": 3,
+      "n_estimators": 20
+    }
+  },
+  {
+    "model_name": "linear_regression"
+  },
+  {
+    "model_name": "svr",
+    "params": {
+      "kernel": "linear",
+      "C": 0.5
+    }
+  },
+  {
+    "model_name": "forest_reg",
+    "params": {
+      "criterion": "gini",
+      "max_depth": 3,
+      "n_estimators": 20
+    }
+  },
+  {
+    "model_name": "gbdt_reg",
+    "params": {
+      "learning_rate": 0.1,
+      "subsample": 0.7,
+      "max_depth": 3,
+      "n_estimators": 20
+    }
+  }
+]
