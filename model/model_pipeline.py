@@ -4,6 +4,7 @@ import pandas as pd
 from config.base_config import *
 import time
 from sklearn.metrics import roc_auc_score, accuracy_score, recall_score, f1_score
+import joblib
 
 
 def read_data(data_path, label_name):
@@ -28,13 +29,31 @@ def test_data():
     return X_train, X_eval, y_train, y_eval
 
 
+def save_model(model, model_name):
+    import datetime
+    try:
+        time = datetime.date.today().strftime('%y%m%d')
+        path = 'output/' + model_name + '_' + time + '.bin'
+        joblib.dump(model, path)
+        print('save model success, model name:', model_name + '_' + time + '.bin')
+    except:
+        print('save model fail')
+
+
 def train(data_path='', label_name=''):
     # X_train, X_eval, y_train, y_eval = read_data(data_path, label_name)
     X_train, X_eval, y_train, y_eval = test_data()
     json_str = json.load(open('../config/params_config.json', encoding='utf-8'))
+
+    model_dic = {}
     for j in json_str:
         name = j['model_name']
         param = j['params']
+        model_dic[name] = param
+
+    for name in model_name:
+        params = model_dic[name]
+
         model = None
 
         if name == 'logistic_regression':
@@ -54,7 +73,8 @@ def train(data_path='', label_name=''):
         elif name == 'gbdt_reg':
             from model.regression.gbdt_reg import model
 
-        cls = model(param)
+        cls = model(X_train, y_train, params)
+        save_model(cls, name)
         print()
         print('*' * 100)
         print('model: ', cls)

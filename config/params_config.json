@@ -2,59 +2,109 @@
   {
     "model_name": "logistic_regression",
     "params": {
-      "C": 0.5,
-      "penalty": "l2"
+      "C": [
+        0.5,
+        0.6,
+        0.7
+      ],
+      "penalty": [
+        "l2",
+        "l2"
+      ]
     }
   },
   {
     "model_name": "svc",
     "params": {
-      "kernel": "linear",
-      "C": 0.5
+      "kernel": [
+        "linear"
+      ],
+      "C": [
+        0.5,
+        0.2
+      ]
     }
   },
   {
     "model_name": "forest_cls",
     "params": {
-      "criterion": "gini",
-      "max_depth": 3,
-      "n_estimators": 20
+      "criterion": [
+        "gini"
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
+        20
+      ]
     }
   },
   {
     "model_name": "gbdt_cls",
     "params": {
-      "learning_rate": 0.1,
-      "subsample": 0.7,
-      "max_depth": 3,
-      "n_estimators": 20
+      "learning_rate": [
+        0.1
+      ],
+      "subsample": [
+        0.7,
+        0.8
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
+        20
+      ]
     }
   },
   {
-    "model_name": "linear_regression"
+    "model_name": "linear_regression",
+    "params": {}
   },
   {
     "model_name": "svr",
     "params": {
-      "kernel": "linear",
+      "kernel": [
+        "linear"
+      ],
       "C": 0.5
     }
   },
   {
     "model_name": "forest_reg",
     "params": {
-      "criterion": "gini",
-      "max_depth": 3,
-      "n_estimators": 20
+      "criterion": [
+        "gini"
+      ],
+      "max_depth": [
+        3
+      ],
+      "n_estimators": [
+        20
+      ]
     }
   },
   {
     "model_name": "gbdt_reg",
     "params": {
-      "learning_rate": 0.1,
-      "subsample": 0.7,
-      "max_depth": 3,
-      "n_estimators": 20
+      "learning_rate": [
+        0.1
+      ],
+      "subsample": [
+        0.7
+      ],
+      "max_depth": [
+        3
+      ],
+      "n_estimators": [
+        20
+      ]
     }
   }
 ]
