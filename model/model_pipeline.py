@@ -1,38 +1,15 @@
 import json
 from sklearn.model_selection import train_test_split
-import pandas as pd
 from config.base_config import *
 import time
 from sklearn.metrics import roc_auc_score, accuracy_score, recall_score, f1_score
 import joblib
 
 
-def read_data(data_path, label_name):
-    df = pd.read_csv(data_path)
-    X = df.drop([label_name], axis=1).values
-    y = df[label_name].values
-    X_train, X_eval, y_train, y_eval = train_test_split(X, y,
-                                                        test_size=split_size,
-                                                        random_state=random_state)
-    return X_train, X_eval, y_train, y_eval
-
-
-def test_data():
-    from sklearn.datasets import load_breast_cancer
-
-    data = load_breast_cancer()
-    X = data['data']
-    y = data['target']
-    X_train, X_eval, y_train, y_eval = train_test_split(X, y,
-                                                        test_size=split_size,
-                                                        random_state=random_state)
-    return X_train, X_eval, y_train, y_eval
-
-
 def save_model(model, model_name):
-    import datetime
+    import time
     try:
-        time = datetime.date.today().strftime('%y%m%d')
+        time = time.strftime('%y%m%d_%H%M')
         path = 'output/' + model_name + '_' + time + '.bin'
         joblib.dump(model, path)
         print('save model success, model name:', model_name + '_' + time + '.bin')
@@ -40,9 +17,10 @@ def save_model(model, model_name):
         print('save model fail')
 
 
-def train(data_path='', label_name=''):
-    # X_train, X_eval, y_train, y_eval = read_data(data_path, label_name)
-    X_train, X_eval, y_train, y_eval = test_data()
+def train(X, y):
+    X_train, X_eval, y_train, y_eval = train_test_split(X, y,
+                                                        test_size=split_size,
+                                                        random_state=random_state)
     json_str = json.load(open('../config/params_config.json', encoding='utf-8'))
 
     model_dic = {}
@@ -95,4 +73,10 @@ def train(data_path='', label_name=''):
 
 
 if __name__ == '__main__':
-    train()
+    from sklearn.datasets import load_breast_cancer
+
+    data = load_breast_cancer()
+    X = data['data']
+    y = data['target']
+
+    train(X, y)
