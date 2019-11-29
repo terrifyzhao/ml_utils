@@ -6,3 +6,9 @@ ml_utils is a AutoML tool, provide an input CSV and a target label to predict, a
 ```
 python pipeline.py -n='name.csv' -l='label'
 ```
+
+# support model
++ LR
++ RandomForest
++ SVM
++ GBDT
