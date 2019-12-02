@@ -1,50 +1,58 @@
 import json
 from sklearn.model_selection import train_test_split
-import pandas as pd
 from config.base_config import *
 import time
 from sklearn.metrics import roc_auc_score, accuracy_score, recall_score, f1_score
+import joblib
 
 
-def read_data(data_path, label_name):
-    df = pd.read_csv(data_path)
-    X = df.drop([label_name], axis=1).values
-    y = df[label_name].values
+def save_model(model, model_name):
+    import time
+    try:
+        time = time.strftime('%y%m%d_%H%M')
+        path = 'output/' + model_name + '_' + time + '.bin'
+        joblib.dump(model, path)
+        print('save model success, model name:', model_name + '_' + time + '.bin')
+    except:
+        print('save model fail')
+
+
+def train(X, y):
     X_train, X_eval, y_train, y_eval = train_test_split(X, y,
                                                         test_size=split_size,
                                                         random_state=random_state)
-    return X_train, X_eval, y_train, y_eval
+    json_str = json.load(open('../config/params_config.json', encoding='utf-8'))
 
-
-def test_data():
-    from sklearn.datasets import load_breast_cancer
-
-    data = load_breast_cancer()
-    X = data['data']
-    y = data['target']
-    X_train, X_eval, y_train, y_eval = train_test_split(X, y,
-                                                        test_size=split_size,
-                                                        random_state=random_state)
-    return X_train, X_eval, y_train, y_eval
-
-
-def train(data_path='', label_name=''):
-    # X_train, X_eval, y_train, y_eval = read_data(data_path, label_name)
-    X_train, X_eval, y_train, y_eval = test_data()
-    json_str = json.load(open('../config/model_config.json', encoding='utf-8'))
+    model_dic = {}
     for j in json_str:
         name = j['model_name']
         param = j['params']
+        model_dic[name] = param
+
+    for name in model_name:
+        params = model_dic[name]
+
         model = None
+
         if name == 'logistic_regression':
             from model.classification.logistic_regression import model
         elif name == 'svc':
             from model.classification.svc import model
-        elif name == 'random_forest':
-            from model.classification.random_forest import model
-        elif name == 'gbdt':
-            from model.classification.gbdt import model
-        cls = model(param)
+        elif name == 'forest_cls':
+            from model.classification.forest_cls import model
+        elif name == 'gbdt_cls':
+            from model.classification.gbdt_cls import model
+        elif name == 'linear_regression':
+            from model.regression.linear_regression import model
+        elif name == 'svr':
+            from model.regression.svr import model
+        elif name == 'forest_reg':
+            from model.regression.forest_reg import model
+        elif name == 'gbdt_reg':
+            from model.regression.gbdt_reg import model
+
+        cls = model(X_train, y_train, params)
+        save_model(cls, name)
         print()
         print('*' * 100)
         print('model: ', cls)
@@ -65,4 +73,10 @@ def train(data_path='', label_name=''):
 
 
 if __name__ == '__main__':
-    train()
+    from sklearn.datasets import load_breast_cancer
+
+    data = load_breast_cancer()
+    X = data['data']
+    y = data['target']
+
+    train(X, y)
