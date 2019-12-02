@@ -60,9 +60,6 @@ def train(X, y):
             from model.regression.xgboost_reg import model
 
         cls = model(X_train, y_train, params)
-        save_model(cls, name)
-        print()
-        print('*' * 100)
         print('model: ', cls)
         start = time.time()
         print('start train')
@@ -78,6 +75,7 @@ def train(X, y):
         print('f1: ', f1)
         auc = roc_auc_score(y_eval, y_prob)
         print('auc: ', auc)
+        save_model(cls, name)
 
 
 if __name__ == '__main__':
@@ -88,4 +86,3 @@ if __name__ == '__main__':
     y = data['target']
 
     train(X, y)
-
