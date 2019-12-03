@@ -64,6 +64,70 @@
     }
   },
   {
+    "model_name": "lightgbm_cls",
+    "params": {
+      "learning_rate": [
+        0.1
+      ],
+      "num_leaves": [
+        4,
+        8,
+        16
+      ],
+      "subsample": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "colsample_bytree": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
+        20
+      ]
+    }
+  },
+  {
+    "model_name": "xgboost_cls",
+    "params": {
+      "learning_rate": [
+        0.1
+      ],
+      "num_leaves": [
+        4,
+        8,
+        16
+      ],
+      "subsample": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "colsample_bytree": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
+        20
+      ]
+    }
+  },
+  {
     "model_name": "linear_regression",
     "params": {}
   },
@@ -103,6 +167,70 @@
         3
       ],
       "n_estimators": [
+        20
+      ]
+    }
+  },
+  {
+    "model_name": "lightgbm_reg",
+    "params": {
+      "learning_rate": [
+        0.1
+      ],
+      "num_leaves": [
+        4,
+        8,
+        16
+      ],
+      "subsample": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "colsample_bytree": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
+        20
+      ]
+    }
+  },
+  {
+    "model_name": "xgboost_reg",
+    "params": {
+      "learning_rate": [
+        0.1
+      ],
+      "num_leaves": [
+        4,
+        8,
+        16
+      ],
+      "subsample": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "colsample_bytree": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "max_depth": [
+        3,
+        4,
+        5
+      ],
+      "n_estimators": [
+        10,
         20
       ]
     }

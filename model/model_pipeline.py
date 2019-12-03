@@ -42,6 +42,10 @@ def train(X, y):
             from model.classification.forest_cls import model
         elif name == 'gbdt_cls':
             from model.classification.gbdt_cls import model
+        elif name == 'lightgbm_cls':
+            from model.classification.lightgbm_cls import model
+        elif name == 'xgboost_cls':
+            from model.classification.xgboost_cls import model
         elif name == 'linear_regression':
             from model.regression.linear_regression import model
         elif name == 'svr':
@@ -50,11 +54,12 @@ def train(X, y):
             from model.regression.forest_reg import model
         elif name == 'gbdt_reg':
             from model.regression.gbdt_reg import model
+        elif name == 'lightgbm_reg':
+            from model.regression.lightgbm_reg import model
+        elif name == 'xgboost_reg':
+            from model.regression.xgboost_reg import model
 
         cls = model(X_train, y_train, params)
-        save_model(cls, name)
-        print()
-        print('*' * 100)
         print('model: ', cls)
         start = time.time()
         print('start train')
@@ -70,6 +75,7 @@ def train(X, y):
         print('f1: ', f1)
         auc = roc_auc_score(y_eval, y_prob)
         print('auc: ', auc)
+        save_model(cls, name)
 
 
 if __name__ == '__main__':
