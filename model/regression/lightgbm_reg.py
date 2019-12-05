@@ -1,10 +1,10 @@
 from lightgbm import LGBMRegressor
 from config.base_config import *
-from model.grid_search import grid_search
+from model.grid_search import grid_search_reg
 
 
 def model(x, y, params):
-    best_params = grid_search(x, y, LGBMRegressor(), params)
+    best_params = grid_search_reg(x, y, LGBMRegressor(), params)
     learning_rate = best_params['learning_rate']
     num_leaves = best_params['num_leaves']
     subsample = best_params['subsample']

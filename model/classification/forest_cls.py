@@ -1,10 +1,10 @@
 from sklearn.ensemble import RandomForestClassifier
 from config.base_config import *
-from model.grid_search import grid_search
+from model.grid_search import grid_search_cls
 
 
 def model(x, y, params):
-    best_params = grid_search(x, y, RandomForestClassifier(), params)
+    best_params = grid_search_cls(x, y, RandomForestClassifier(), params)
     # "gini" for the Gini impurity and "entropy" for the information gain.
     criterion = best_params['criterion']
     max_depth = best_params['max_depth']
