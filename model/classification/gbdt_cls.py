@@ -1,10 +1,10 @@
 from sklearn.ensemble import GradientBoostingClassifier
 from config.base_config import *
-from model.grid_search import grid_search
+from model.grid_search import grid_search_cls
 
 
 def model(x, y, params):
-    best_params = grid_search(x, y, GradientBoostingClassifier(), params)
+    best_params = grid_search_cls(x, y, GradientBoostingClassifier(), params)
     learning_rate = best_params['learning_rate']
     subsample = best_params['subsample']
     max_depth = best_params['max_depth']

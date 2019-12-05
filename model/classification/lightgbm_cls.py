@@ -1,10 +1,10 @@
 from lightgbm import LGBMClassifier
 from config.base_config import *
-from model.grid_search import grid_search
+from model.grid_search import grid_search_cls
 
 
 def model(x, y, params):
-    best_params = grid_search(x, y, LGBMClassifier(), params)
+    best_params = grid_search_cls(x, y, LGBMClassifier(), params)
     learning_rate = best_params['learning_rate']
     num_leaves = best_params['num_leaves']
     subsample = best_params['subsample']

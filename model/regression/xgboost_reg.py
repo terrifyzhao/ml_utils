@@ -1,10 +1,10 @@
 from xgboost import XGBRegressor
 from config.base_config import *
-from model.grid_search import grid_search
+from model.grid_search import grid_search_reg
 
 
 def model(x, y, params):
-    best_params = grid_search(x, y, XGBRegressor(), params)
+    best_params = grid_search_reg(x, y, XGBRegressor(objective='reg:squarederror'), params)
     learning_rate = best_params['learning_rate']
     num_leaves = best_params['num_leaves']
     subsample = best_params['subsample']
@@ -17,5 +17,6 @@ def model(x, y, params):
                        colsample_bytree=colsample_bytree,
                        max_depth=max_depth,
                        n_estimators=n_estimators,
-                       random_state=random_state)
+                       random_state=random_state,
+                       objective='reg:squarederror')
     return cls
