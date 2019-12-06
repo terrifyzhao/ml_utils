@@ -8,14 +8,8 @@
 from sklearn import preprocessing as skp
 from sklearn import decomposition  as dpn
 from sklearn import feature_selection as fsn
-import Features as ft
-
-
-def back_args_str(*args, **kwargs):
-    largs = [f"'{str(a)}'" if isinstance(a, str) else str(a) for a in args]
-    kw = [str(k) + '=' + ("'" + str(v) + "'" if isinstance(v, str) else str(v)) for k, v in kwargs.items()]
-    largs.extend(kw)
-    return ','.join(largs)
+import feature_expand as ft
+from utils.util import back_args_str
 
 
 class FeaturesStandard(object):
