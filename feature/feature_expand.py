@@ -6,7 +6,7 @@
 # @File   : feature_expand.py
 
 import pandas as pd
-from feature.tools import bayesian_blocks
+from utils.util import bayesian_blocks
 
 class CutBins(object):
     def __init__(self):

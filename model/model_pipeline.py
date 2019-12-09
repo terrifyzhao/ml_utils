@@ -56,7 +56,7 @@ def train(X, y, dtype):
     X_train, X_eval, y_train, y_eval = train_test_split(X, y,
                                                         test_size=split_size,
                                                         random_state=random_state)
-    json_str = json.load(open('../config/params_config.json', encoding='utf-8'))
+    json_str = json.load(open(params_config_path, encoding='utf-8'))
 
     model_dic = {}
     for j in json_str:

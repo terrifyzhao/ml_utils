@@ -25,11 +25,10 @@ class PreprocessMissvalue(object):
             - max_iter: Maximum number of imputation rounds to perform before returning the imputations computed during the final round.
             - add_indicator: add binary indicators for missing values
 
-        3.KNN
-        parameters for KNN:
-            - k : Number of neighboring rows to use for imputation.
+        3.KNNImputer
+        parameters for KNNImputer:
+            - n_neighbors : Number of neighboring samples to use for imputation.
 
-        4.NuclearNormMinimization
         '''
         self.extra = False
         try:

@@ -1,7 +1,7 @@
 features,types,outlier,missvalue,standard,encoder
-Pclass,category,,KNN,,
-Sex,category,,,,LabelEncoder
-Age,numeric,replace,,,
-Siblings/Spouses Aboard,category,,,,LabelEncoder
+Pclass,category,,,,
+Sex,category,,,,OrdinalEncoder
+Age,numeric,Replace,,,
+Siblings/Spouses Aboard,category,,,,OrdinalEncoder
 Parents/Children Aboard,category,,,,
-Fare,numeric,,,,
+Fare,numeric,,KNNImputer,,

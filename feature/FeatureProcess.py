@@ -9,17 +9,8 @@ from sklearn import preprocessing as skp
 from sklearn import decomposition  as dpn
 from sklearn import feature_selection as fsn
 import feature.feature_expand as ft
-from utils.util import back_args_str
+from utils.util import back_args_str, auto_pate
 
-def auto_pate(method):
-    """自动添加括号"""
-    method = str.strip(method)
-    if method[-1]!=')':
-        if '(' not in method:
-            method = method+'()'
-        else:
-            method =  method+')'
-    return method
 
 class FeaturesStandard(object):
     def __init__(self, method="StandardScaler()"):

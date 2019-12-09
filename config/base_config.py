@@ -4,6 +4,8 @@ root_path = str(pathlib.Path(os.path.abspath(__file__)).parent.parent)
 
 data_path = root_path + '/data/titanic.csv'
 column_config_path = root_path + '/config/column_config.csv'
+params_config_path = root_path + '/config/params_config.json'
+
 
 # 随机种子
 random_state = 0
