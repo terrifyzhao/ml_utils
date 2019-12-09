@@ -1,7 +1,7 @@
 import pandas as pd
 from config.base_config import column_config_path, data_path
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.compose import ColumnTransformer
 from preprocess.Preprocess import PreprocessMissvalue, PreprocessOutlier
 from feature.FeatureProcess import FeaturesStandard, FeaturesEncoder, FeaturesDecomposition, FeaturesSelection
 
@@ -11,7 +11,6 @@ data = pd.read_csv(data_path)
 label = 'Survived'
 cat_cols = ['Pclass', 'Siblings/Spouses Aboard', 'Parents/Children Aboard']
 data[cat_cols] = data[cat_cols].astype('category')
-data = data.drop('Name', axis=1)
 
 # read column config
 column_config = pd.read_csv(column_config_path)
@@ -30,7 +29,7 @@ column_config.fillna('NA', inplace=True)
 # construct transformers
 column_g = column_config.groupby(modules)
 transformer_list = []
-for each in column_g:
+for index, each in enumerate(column_g):
     sub_df = each[1]
     sub_tran = each[0]
 
@@ -53,9 +52,8 @@ for each in column_g:
 
     sub_pipe = Pipeline(trans)
 
-    transformer_list.append((sub_feat,sub_pipe))
+    transformer_list.append(('group_'+str(index), sub_pipe, sub_feat))
 
-transformer_tuple = tuple(transformer_list)
+processes = ColumnTransformer(transformer_list)
 
-
-
+dataset = processes.fit_transform(data)
