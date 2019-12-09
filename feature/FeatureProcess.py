@@ -11,17 +11,26 @@ from sklearn import feature_selection as fsn
 import feature_expand as ft
 from utils.util import back_args_str
 
+def auto_pate(method):
+    """自动添加括号"""
+    method = str.strip(method)
+    if method[-1]!=')':
+        if '(' not in method:
+            method = method+'()'
+        else:
+            method =  method+')'
+    return method
 
 class FeaturesStandard(object):
-    def __init__(self, method='StandardScaler', *args, **kwargs):
+    def __init__(self, method="StandardScaler()"):
         self.extra = False
         try:
-            self.method = eval(f"skp.{method}({back_args_str(*args, **kwargs)})")
+            self.method = eval(f"skp.{auto_pate(method)}")
         except Exception as e:
             self.extra = True
         if self.extra:
             try:
-                self.method = eval(f"ft.{method}({back_args_str(*args, **kwargs)})")
+                self.method = eval(f"ft.{auto_pate(method)}")
             except Exception as e:
                 raise AttributeError('传入的方法名或者参数不对，无法实例化对象')
 
@@ -33,15 +42,15 @@ class FeaturesStandard(object):
 
 
 class FeaturesEncoder(object):
-    def __init__(self, method='OneHotEncoder',*args, **kwargs):
+    def __init__(self, method="OneHotEncoder(handle_unknown='ignore')"):
         self.extra = False
         try:
-            self.method = eval(f"skp.{method}({back_args_str(*args, **kwargs)})")
+            self.method = eval(f"skp.{auto_pate(method)}")
         except Exception as e:
             self.extra = True
         if self.extra:
             try:
-                self.method = eval(f"ft.{method}({back_args_str(*args, **kwargs)})")
+                self.method = eval(f"ft.{auto_pate(method)}")
             except Exception as e:
                 raise AttributeError('传入的方法名或者参数不对，无法实例化对象')
 
@@ -53,15 +62,15 @@ class FeaturesEncoder(object):
 
 
 class FeaturesDecomposition(object):
-    def __init__(self, method='PCA',*args, **kwargs):
+    def __init__(self, method="PCA(n_components=2)"):
         self.extra = False
         try:
-            self.method = eval(f"dpn.{method}({back_args_str(*args, **kwargs)})")
+            self.method = eval(f"dpn.{auto_pate(method)}")
         except Exception as e:
             self.extra = True
         if self.extra:
             try:
-                self.method = eval(f"ft.{method}({back_args_str(*args, **kwargs)})")
+                self.method = eval(f"ft.{auto_pate(method)}")
             except Exception as e:
                 raise AttributeError('传入的方法名或者参数不对，无法实例化对象')
 
@@ -73,15 +82,15 @@ class FeaturesDecomposition(object):
 
 
 class FeaturesSelection(object):
-    def __init__(self, method='VarianceThreshold',*args, **kwargs):
+    def __init__(self, method="VarianceThreshold(threshold=0.16)"):
         self.extra = False
         try:
-            self.method = eval(f"fsn.{method}({back_args_str(*args, **kwargs)})")
+            self.method = eval(f"fsn.{auto_pate(method)}")
         except Exception as e:
             self.extra = True
         if self.extra:
             try:
-                self.method = eval(f"ft.{method}({back_args_str(*args, **kwargs)})")
+                self.method = eval(f"ft.{auto_pate(method)}")
             except Exception as e:
                 raise AttributeError('传入的方法名或者参数不对，无法实例化对象')
 
