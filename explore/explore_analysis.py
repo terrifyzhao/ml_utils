@@ -7,9 +7,9 @@ import missingno as msno
 import prince
 from utils.util import mad_based_outlier
 import pandas.api.types as ptypes
-import random
+from config.base_config import random_state
 
-seed = random.seed(20191205)
+seed = random_state
 
 
 def explore_global_plot(data, label='label', n_feats=50, id=None, task='classification'):
@@ -30,9 +30,9 @@ def explore_global_plot(data, label='label', n_feats=50, id=None, task='classifi
         columns.remove(id)
         data.drop(id, axis=1, inplace=True)
 
-    category_features = [True if ptypes.is_string_dtype(i) else False for i in data[columns].dtypes]
-    category_names = [columns[i] for i, v in enumerate(category_features) if v]
-    numeric_names = list(set(columns) - set(category_names))
+    numeric_features = [True if any([ptypes.is_integer_dtype(i),ptypes.is_int64_dtype(i),ptypes.is_float_dtype(i)]) else False for i in data[columns].dtypes]
+    numeric_names = [columns[i] for i, v in enumerate(numeric_features) if v]
+    category_names = list(set(columns) - set(numeric_names))
 
     if task == 'classification':
         if len(category_names):
@@ -67,13 +67,17 @@ def explore_global_plot(data, label='label', n_feats=50, id=None, task='classifi
             plt.show()
 
     # sort features for correlation plot
-    new_data = data[[label] + numeric_names].dropna(axis=0)
-    new_data_feat = new_data[numeric_names]
-    new_data_stand = StandardScaler().fit_transform(new_data_feat)
-    new_data_kmean = KMeans(n_clusters=3, random_state=seed).fit_transform(
-        new_data_stand.reshape(len(numeric_names), -1))
-    sorted_feat = sorted(zip(numeric_names, new_data_kmean.labels_), key=lambda x: x[1])
-    sorted_feat_name = [i[0] for i in sorted_feat]
+    sorted_feat_name = numeric_names
+    if len(numeric_names) > 6:
+        n_clusters = 3
+        new_data = data[[label] + numeric_names].dropna(axis=0)
+        new_data_feat = new_data[numeric_names]
+        new_data_stand = StandardScaler().fit_transform(new_data_feat)
+        kmean_init = KMeans(n_clusters=n_clusters, random_state=seed)
+        new_data_kmean=kmean_init.fit_transform(
+            new_data_stand.reshape(len(numeric_names), -1))
+        sorted_feat = sorted(zip(numeric_names, kmean_init.labels_), key=lambda x: x[1])
+        sorted_feat_name = [i[0] for i in sorted_feat]
 
     # correlation plot for all features
     sns.heatmap(data[[label] + sorted_feat_name + category_names].corr())

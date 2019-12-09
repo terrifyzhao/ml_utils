@@ -8,7 +8,7 @@
 from sklearn import preprocessing as skp
 from sklearn import decomposition  as dpn
 from sklearn import feature_selection as fsn
-import feature_expand as ft
+import feature.feature_expand as ft
 from utils.util import back_args_str
 
 def auto_pate(method):
