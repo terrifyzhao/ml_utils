@@ -6,6 +6,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score, recall_score, f1_scor
 import joblib
 import pandas as pd
 import numpy as np
+from sklearn.linear_model import LogisticRegression, LinearRegression
 
 
 def save_model(model, model_name):
@@ -19,10 +20,19 @@ def save_model(model, model_name):
         print('save model fail')
 
 
-def ensemble_model(y_prob):
+def ensemble_model_mean(y_prob):
     y_prob = np.array(y_prob)
     res = np.mean(np.array(y_prob), axis=0)
     return res
+
+
+def ensemble_model_lr(x, y, dtype):
+    if dtype == 'cls':
+        model = LogisticRegression(random_state=random_state, solver='liblinear')
+    elif dtype == 'reg':
+        model = LinearRegression()
+    model.fit(x, y)
+    return model
 
 
 def calculate_score_cls(y_true, y_prob):
@@ -73,6 +83,7 @@ def train(X, y, dtype):
 def cls_model(model_dic, X_train, X_eval, y_train, y_eval):
     df = pd.DataFrame(columns=['name', 'acc', 'recall', 'f1', 'auc'])
     y_prob_list, score_list = [], []
+    ensemble_x = []
     for name in model_name:
         params = model_dic[name]
 
@@ -99,20 +110,30 @@ def cls_model(model_dic, X_train, X_eval, y_train, y_eval):
         print('train time: ', time.time() - start)
         save_model(cls, name)
 
+        ensemble_x.append([i[1] for i in cls.predict_proba(X_train)])
+
         y_prob = cls.predict_proba(X_eval)
         score = calculate_score_cls(y_eval, y_prob)
 
         score_list.append(score)
         y_prob_list.append(y_prob)
 
-    ensemble_prob = ensemble_model(y_prob_list)
+    ensemble_model = ensemble_model_lr(np.array(ensemble_x).T, y_train, 'cls')
     print()
     print('*' * 100)
-    print('ensemble_model')
+    print('ensemble_model_lr')
+    ensemble_lr_prob = ensemble_model.predict_proba(np.array(y_prob_list)[:, :, 1].T)
+    ensemble_score = calculate_score_cls(y_eval, ensemble_lr_prob)
+    score_list.append(ensemble_score)
+
+    ensemble_prob = ensemble_model_mean(y_prob_list)
+    print()
+    print('*' * 100)
+    print('ensemble_model_mean')
     ensemble_score = calculate_score_cls(y_eval, ensemble_prob)
     score_list.append(ensemble_score)
 
-    df['name'] = model_name + ['ensemble_model']
+    df['name'] = model_name + ['ensemble_model_lr'] + ['ensemble_model_mean']
     score_list = np.array(score_list)
     for i, c in enumerate(['acc', 'recall', 'f1', 'auc']):
         df[c] = score_list[:, i]
@@ -122,6 +143,7 @@ def cls_model(model_dic, X_train, X_eval, y_train, y_eval):
 def reg_model(model_dic, X_train, X_eval, y_train, y_eval):
     df = pd.DataFrame(columns=['name', 'loss'])
     y_pred_list, score_list = [], []
+    ensemable_x = []
     for name in model_name:
         params = model_dic[name]
 
@@ -148,25 +170,34 @@ def reg_model(model_dic, X_train, X_eval, y_train, y_eval):
         print('train time: ', time.time() - start)
         save_model(cls, name)
 
+        ensemable_x.append(cls.predict(X_train))
         y_pred = cls.predict(X_eval)
         y_pred_list.append(y_pred)
         score = calculate_score_reg(y_eval, y_pred)
         score_list.append(score)
 
-    ensemble_pred = ensemble_model(y_pred_list)
+    ensemble_model = ensemble_model_lr(np.array(ensemable_x).T, y_train, 'reg')
     print()
     print('*' * 100)
-    print('ensemble_model')
+    print('ensemble_model_lr')
+    ensemble_pred = ensemble_model.predict(np.array(y_pred_list).T)
     ensemble_score = calculate_score_reg(y_eval, ensemble_pred)
     score_list.append(ensemble_score)
 
-    df['name'] = model_name + ['ensemble_model']
+    ensemble_pred = ensemble_model_mean(y_pred_list)
+    print()
+    print('*' * 100)
+    print('ensemble_model_mean')
+    ensemble_score = calculate_score_reg(y_eval, ensemble_pred)
+    score_list.append(ensemble_score)
+
+    df['name'] = model_name + ['ensemble_model_lr'] + ['ensemble_model_mean']
     df['loss'] = score_list
     df.to_csv('output/result.csv', encoding='utf_8_sig', index=False)
 
 
 if __name__ == '__main__':
-    cls = 1
+    cls = 0
     if cls:
         from sklearn.datasets import load_breast_cancer
 

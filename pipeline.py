@@ -10,11 +10,16 @@ def read_data(data_path, label_name):
     return X, y
 
 
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(usage="it's usage tip.", description="help info.")
     parser.add_argument("-d", "--data", help="train data", dest="data")
     parser.add_argument("-l", "--label", help="label", dest="label")
+    parser.add_argument("-y", "--dtype", help="task type", dest="dtype", default='cls')
 
     args = parser.parse_args()
     X, y = read_data(args.data, args.label)
-    train(X, y)
+
+    train(X, y, args.dtype)
