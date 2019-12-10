@@ -11,9 +11,6 @@ def read_data(data_path, label_name):
     return X, y
 
 
-
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(usage="it's usage tip.", description="help info.")
     parser.add_argument("-d", "--data", help="train data", dest="data")
@@ -23,6 +20,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     X, y = read_data(args.data, args.label)
 
-    X_=processes.fit_transform(X)
+    X_ = processes.fit_transform(X)
     train(X_, y, 'cls')
-

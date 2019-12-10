@@ -197,7 +197,7 @@ def reg_model(model_dic, X_train, X_eval, y_train, y_eval):
 
 
 if __name__ == '__main__':
-    cls = 0
+    cls = 1
     if cls:
         from sklearn.datasets import load_breast_cancer
 

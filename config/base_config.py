@@ -26,7 +26,7 @@ verbose = 0
 'forest_reg' 随机森林回归 
 'gbdt_reg' gbdt回归
 """
-# model_name = ['logistic_regression', 'svc']
-# model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
-model_name = ['linear_regression', 'svr']
+# model_name = ['logistic_regression']
+model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
+# model_name = ['linear_regression']
 # model_name = ['linear_regression', 'svr', 'forest_reg', 'gbdt_reg', 'lightgbm_reg', 'xgboost_reg']
