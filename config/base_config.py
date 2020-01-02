@@ -3,6 +3,7 @@ import os
 root_path = str(pathlib.Path(os.path.abspath(__file__)).parent.parent)
 
 data_path = root_path + '/data/titanic.csv'
+output_path = root_path + '/model/output/'
 column_config_path = root_path + '/config/column_config.csv'
 params_config_path = root_path + '/config/params_config.json'
 
@@ -26,7 +27,7 @@ verbose = 0
 'forest_reg' 随机森林回归 
 'gbdt_reg' gbdt回归
 """
-# model_name = ['logistic_regression']
-model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
+model_name = ['logistic_regression']
+# model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
 # model_name = ['linear_regression']
 # model_name = ['linear_regression', 'svr', 'forest_reg', 'gbdt_reg', 'lightgbm_reg', 'xgboost_reg']
