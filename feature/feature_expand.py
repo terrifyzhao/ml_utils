@@ -6,14 +6,14 @@
 # @File   : feature_expand.py
 
 import pandas as pd
-from utils.util import bayesian_blocks
+from utils.util import bayesian_blocks,get_bins
 
 class CutBins(object):
     def __init__(self):
         self.bins = []
         self.labels = []
 
-    def fit(self,x, bins=None, labels=None):
+    def fit(self,y,x, bins=None, labels=None):
         """
         :param x:
         :param bins: 分割区间[0,10,18,35,55,120] 不指定，默认等频5等分
@@ -23,11 +23,11 @@ class CutBins(object):
         if bins:
             self.bins = bins
         else:
-            self.bins = bayesian_blocks(x)
+            self.bins = get_bins(y,x)
         if labels:
             self.labels =labels
         else:
-            self.labels = range(len(bins))
+            self.labels = range(len(self.bins) -1 )
         return self
 
     def transform(self,x):
