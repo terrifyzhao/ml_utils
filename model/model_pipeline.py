@@ -13,7 +13,7 @@ def save_model(model, model_name):
     import time
     try:
         time = time.strftime('%y%m%d_%H%M')
-        path = 'output/' + model_name + '_' + time + '.bin'
+        path = output_path + model_name + '_' + time + '.bin'
         joblib.dump(model, path)
         print('save model success, model name:', model_name + '_' + time + '.bin')
     except:
@@ -137,7 +137,7 @@ def cls_model(model_dic, X_train, X_eval, y_train, y_eval):
     score_list = np.array(score_list)
     for i, c in enumerate(['acc', 'recall', 'f1', 'auc']):
         df[c] = score_list[:, i]
-    df.to_csv('output/result.csv', encoding='utf_8_sig', index=False)
+    df.to_csv(output_path + 'result.csv', encoding='utf_8_sig', index=False)
 
 
 def reg_model(model_dic, X_train, X_eval, y_train, y_eval):
@@ -193,7 +193,7 @@ def reg_model(model_dic, X_train, X_eval, y_train, y_eval):
 
     df['name'] = model_name + ['ensemble_model_lr'] + ['ensemble_model_mean']
     df['loss'] = score_list
-    df.to_csv('output/result.csv', encoding='utf_8_sig', index=False)
+    df.to_csv(output_path + 'result.csv', encoding='utf_8_sig', index=False)
 
 
 if __name__ == '__main__':
