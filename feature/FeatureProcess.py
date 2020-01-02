@@ -11,7 +11,6 @@ from sklearn import feature_selection as fsn
 import feature.feature_expand as ft
 from utils.util import back_args_str, auto_pate
 
-
 class FeaturesStandard(object):
     def __init__(self, method="StandardScaler()"):
         self.extra = False
@@ -90,8 +89,6 @@ class FeaturesSelection(object):
 
     def transform(self, *args,**kwargs):
         return self.method.transform(*args,**kwargs)
-
-
 
 
 if __name__ == '__main__':
