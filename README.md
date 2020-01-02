@@ -8,13 +8,12 @@ ml_utils是一个全自动的机器学习工具，只需要提供输入的csv文
 + 执行以下命令
 
 ```
-python pipeline.py -n='name.csv' -l='label' -y='cls'
+python pipeline.py -n='data/titanic.csv' -l='label' -y='cls'
 ```
-
 -n表示的是训练数据的路径，-l表示的是lable名字，-y表示的任务类型分类`cls`与回归`reg`
 
 # 代码目录
-![](https://raw.githubusercontent.com/terrifyzhao/ml_utils/master/dir.jpg)
+<img src="https://raw.githubusercontent.com/terrifyzhao/ml_utils/master/dir.jpg" width="200" align=center>
 
 + config – 路径配置、特征配置、模型超参数配置
 + data – 训练数据
