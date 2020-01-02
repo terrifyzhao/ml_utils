@@ -14,7 +14,7 @@ python pipeline.py -n='name.csv' -l='label' -y='cls'
 -n表示的是训练数据的路径，-l表示的是lable名字，-y表示的任务类型分类`cls`与回归`reg`
 
 # 代码目录
-![](media/15779321000860/15779338279381.jpg)
+![](https://raw.githubusercontent.com/terrifyzhao/ml_utils/master/dir.jpg)
 
 + config – 路径配置、特征配置、模型超参数配置
 + data – 训练数据
