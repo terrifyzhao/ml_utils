@@ -15,7 +15,7 @@ split_size = 0.3
 # 评测指标
 eval_metric = ['auc', 'acc', 'recall', 'f1']
 # GridSearch日志级别 2-全部输出 1-部分输出 0-不输出
-verbose = 0
+verbose = 2
 # 需要使用的模型名字
 """
 'logistic_regression' 逻辑回归
@@ -27,7 +27,7 @@ verbose = 0
 'forest_reg' 随机森林回归 
 'gbdt_reg' gbdt回归
 """
-model_name = ['logistic_regression']
-# model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
+# model_name = ['logistic_regression']
+model_name = ['logistic_regression', 'svc', 'forest_cls', 'gbdt_cls', 'lightgbm_cls', 'xgboost_cls']
 # model_name = ['linear_regression']
 # model_name = ['linear_regression', 'svr', 'forest_reg', 'gbdt_reg', 'lightgbm_reg', 'xgboost_reg']
