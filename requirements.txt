@@ -5,6 +5,6 @@ missingno==0.4.2
 fancyimpute==0.5.4
 prince==0.6.3
 pandas==0.24.2
-numpy==1.16.2
+numpy==1.22.0
 lightgbm==2.3.0
 xgboost==0.90
